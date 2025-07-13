@@ -3,28 +3,32 @@ import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import {
-    Alert,
-    Button,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Button,
+
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
-const BACKEND_URL = 'https://your-backend.com/api'; // Replace with your actual backend URL
+// 👇 Use local backend if running on Android emulator: 'http://10.0.2.2:5000'
+// For real device via LAN, replace with your machine IP: 'http://192.168.x.x:5000'
+const BACKEND_URL = 'http://192.168.158.139:5000';
+
 
 const UploadClothesScreen = () => {
   const [season, setSeason] = useState('');
   const [gender, setGender] = useState('');
   const [type, setType] = useState('');
   const [subType, setSubType] = useState('');
-  const [images, setImages] = useState<any[]>([]); // Explicit type
+  const [images, setImages] = useState<any[]>([]);
 
   const handleImageSelect = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       allowsMultipleSelection: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -59,7 +63,7 @@ const UploadClothesScreen = () => {
         uri: img.uri,
         type: 'image/jpeg',
         name: `photo_${idx}.jpg`,
-      } as any); // casting for TypeScript compatibility
+      } as any);
     });
 
     formData.append('season', season);
@@ -71,7 +75,7 @@ const UploadClothesScreen = () => {
       await axios.post(`${BACKEND_URL}/upload-clothes`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      Alert.alert('Success', 'Clothes uploaded successfully!');
+      Alert.alert('✅ Success', 'Clothes uploaded successfully!');
       setImages([]);
       setSeason('');
       setGender('');
@@ -79,7 +83,7 @@ const UploadClothesScreen = () => {
       setSubType('');
     } catch (err) {
       console.error(err);
-      Alert.alert('Upload Failed', 'Something went wrong.');
+      Alert.alert('❌ Upload Failed', 'Something went wrong.');
     }
   };
 
