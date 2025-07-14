@@ -1,9 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import { View, StyleSheet } from 'react-native';
 
 export default function TabLayout() {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: styles.tabBar, // Applying gradient style to the tab bar
+        tabBarActiveTintColor: '#fff', // Active icon color
+        tabBarInactiveTintColor: '#D3D3D3', // Inactive icon color
+      }}
+    >
       {/* Home Tab */}
       <Tabs.Screen
         name="index"
@@ -39,3 +47,17 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: 'transparent', // Make tabBar background transparent to show gradient
+    height: 60, // Adjust the height of the tab bar
+    borderTopLeftRadius: 15, // Rounded corners for the tab bar
+    borderTopRightRadius: 15, // Rounded corners for the tab bar
+    paddingBottom: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+});
