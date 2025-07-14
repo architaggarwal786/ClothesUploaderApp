@@ -1,9 +1,16 @@
- import React, { useState } from 'react';
-import { View, Button, Image, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+  import React, { useState } from 'react';
+import {
+  View,
+  Button,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 
-const BACKEND_URL = 'http://192.168.158.139:5000';
+const BACKEND_URL = 'https://0c8164135ad3.ngrok-free.app'; // ✅ Your current backend URL
 
 const UploadScreen = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -34,16 +41,17 @@ const UploadScreen = () => {
       name: filename,
       type,
     } as any);
-console.log("Uploading image: ", imageUri);
 
     try {
-      const res = await axios.post(`${BACKEND_URL}/upload-clothes`, formData, {
+      await axios.post(`${BACKEND_URL}/upload-clothes`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      Alert.alert('Upload Successful', 'Clothes info detected and uploaded automatically!');
+
+      Alert.alert('✅ Upload Successful', 'Clothing info detected and uploaded!');
+      setImageUri(null);
     } catch (err) {
       console.error(err);
-      Alert.alert('Upload Failed', 'Something went wrong.');
+      Alert.alert('❌ Upload Failed', 'Something went wrong.');
     } finally {
       setUploading(false);
     }
@@ -53,7 +61,11 @@ console.log("Uploading image: ", imageUri);
     <View style={styles.container}>
       {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
       <Button title="Pick an Image" onPress={pickImage} />
-      <Button title="Upload" onPress={uploadImage} disabled={!imageUri || uploading} />
+      <Button
+        title="Upload"
+        onPress={uploadImage}
+        disabled={!imageUri || uploading}
+      />
       {uploading && <ActivityIndicator size="large" style={{ marginTop: 20 }} />}
     </View>
   );

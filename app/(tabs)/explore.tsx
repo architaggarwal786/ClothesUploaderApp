@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,14 +8,14 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import axios from 'axios';
-import { useIsFocused } from '@react-navigation/native'; // 👈 add this
+import { useIsFocused } from '@react-navigation/native';
 
-const BACKEND_URL = 'http://192.168.158.139:5000';
+const BACKEND_URL = 'https://0c8164135ad3.ngrok-free.app'; // ✅ Same as backend
 
 const ExploreScreen = () => {
   const [clothes, setClothes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const isFocused = useIsFocused(); // 👈 detect tab focus
+  const isFocused = useIsFocused();
 
   const fetchClothes = async () => {
     try {
@@ -30,7 +30,7 @@ const ExploreScreen = () => {
 
   useEffect(() => {
     if (isFocused) {
-      setLoading(true); // show spinner on tab re-focus
+      setLoading(true);
       fetchClothes();
     }
   }, [isFocused]);
@@ -47,12 +47,14 @@ const ExploreScreen = () => {
     </View>
   );
 
-  if (loading) return <ActivityIndicator size="large" color="#000" style={{ marginTop: 100 }} />;
+  if (loading) {
+    return <ActivityIndicator size="large" color="#000" style={{ marginTop: 100 }} />;
+  }
 
   return (
     <FlatList
       data={clothes}
-      keyExtractor={(item) => item._id?.toString() || item.id?.toString()}
+      keyExtractor={(item) => item._id?.toString()}
       renderItem={renderItem}
       contentContainerStyle={styles.list}
       numColumns={2}
