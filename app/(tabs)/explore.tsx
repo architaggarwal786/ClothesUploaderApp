@@ -4,8 +4,9 @@ import axios from 'axios';
 import { useIsFocused } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import ChatbotButton from '@/components/ChatbotButton';
 
-const BACKEND_URL = 'https://8c4f7b436d93.ngrok-free.app'; // ✅ Replace with your current backend URL
+const BACKEND_URL = 'https://8730a8b68377.ngrok-free.app'; // ✅ Replace with your current backend URL
 
 const ExploreScreen = () => {
   const [clothes, setClothes] = useState<any[]>([]);
@@ -82,6 +83,7 @@ const ExploreScreen = () => {
         contentContainerStyle={styles.list}
         numColumns={1}
       />
+      <ChatbotButton/>
     </LinearGradient>
   );
 };

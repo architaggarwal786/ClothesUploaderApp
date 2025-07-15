@@ -3,8 +3,9 @@ import { View, Button, Image, StyleSheet, ActivityIndicator, Alert, TouchableOpa
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
+import ChatbotButton from '@/components/ChatbotButton';
 
-const BACKEND_URL = 'https://8c4f7b436d93.ngrok-free.app'; // ✅ Your current backend URL
+const BACKEND_URL = 'https://8730a8b68377.ngrok-free.app'; // ✅ Your current backend URL
 
 const UploadScreen = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -73,7 +74,10 @@ const UploadScreen = () => {
       </TouchableOpacity>
 
       {uploading && <ActivityIndicator size="large" style={{ marginTop: 20 }} color="#fff" />}
+      <ChatbotButton/>
     </LinearGradient>
+   
+  
   );
 };
 

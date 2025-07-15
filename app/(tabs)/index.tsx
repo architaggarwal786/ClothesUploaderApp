@@ -1,6 +1,7 @@
  import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import ChatbotButton from '@/components/ChatbotButton';
 
 export default function HomeScreen() {
   return (
@@ -12,6 +13,7 @@ export default function HomeScreen() {
       <Text style={styles.subtitle}>
         Use the tabs below to upload clothes or explore more.
       </Text>
+      <ChatbotButton/>
     </LinearGradient>
   );
 }
